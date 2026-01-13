@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: forward_pass_databricks
+    description: |
+      MNIST neural network forward pass using Databricks/Spark SQL array functions.
+      Takes input images and produces class logits (0-9) for each sample.
+    columns:
+      - name: sample_id
+        description: Unique identifier for each input image
+      - name: class_idx
+        description: Digit class (0-9)
+      - name: logit
+        description: Raw output score before softmax
+
+  - name: predictions_databricks
+    description: |
+      Final predictions from the Databricks neural network implementation.
+      Includes predicted digit and confidence scores.
+    columns:
+      - name: sample_id
+        description: Unique identifier for each input image
+      - name: predicted_digit
+        description: The predicted digit (0-9) with highest logit
+      - name: logit_score
+        description: Raw logit value for the predicted class
+      - name: softmax_probability
+        description: Softmax probability for the predicted class
+
+seeds:
+  - name: fc1_weights_databricks
+    description: Layer 1 weights in array format (784 inputs -> 128 neurons)
+    columns:
+      - name: output_idx
+        description: Output neuron index (0-127)
+      - name: weights
+        description: Array of 784 weight values
+
+  - name: fc2_weights_databricks
+    description: Layer 2 weights in array format (128 inputs -> 64 neurons)
+    columns:
+      - name: output_idx
+        description: Output neuron index (0-63)
+      - name: weights
+        description: Array of 128 weight values
+
+  - name: fc3_weights_databricks
+    description: Layer 3 weights in array format (64 inputs -> 10 neurons)
+    columns:
+      - name: output_idx
+        description: Output neuron index (0-9)
+      - name: weights
+        description: Array of 64 weight values
+

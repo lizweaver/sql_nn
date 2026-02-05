@@ -19,20 +19,9 @@ clean-targets:
 # Model configurations
 models:
   sql_neural_network:
-    # Databricks implementation (recommended)
     databricks:
       +materialized: table
       +tags: ['databricks', 'neural_network']
-    
-    # Snowflake implementation
-    snowflake:
-      +materialized: table
-      +tags: ['snowflake', 'neural_network']
-    
-    # Wide format implementation (database-agnostic)
-    wide:
-      +materialized: table
-      +tags: ['wide_format', 'neural_network']
 
 # Seed configurations
 seeds:
@@ -50,25 +39,7 @@ seeds:
       +column_types:
         output_idx: int
         bias_value: float
-    
-    # Row format weights (for wide SQL)
-    fc1_weight:
-      +column_types:
-        output_idx: int
-        input_idx: int
-        weight_value: float
-    fc2_weight:
-      +column_types:
-        output_idx: int
-        input_idx: int
-        weight_value: float
-    fc3_weight:
-      +column_types:
-        output_idx: int
-        input_idx: int
-        weight_value: float
-    
-    # Array format weights (Databricks & Snowflake)
+
     fc1_weights_databricks:
       +column_types:
         output_idx: int
@@ -78,18 +49,6 @@ seeds:
         output_idx: int
         weights: string
     fc3_weights_databricks:
-      +column_types:
-        output_idx: int
-        weights: string
-    fc1_weights_snowflake:
-      +column_types:
-        output_idx: int
-        weights: string
-    fc2_weights_snowflake:
-      +column_types:
-        output_idx: int
-        weights: string
-    fc3_weights_snowflake:
       +column_types:
         output_idx: int
         weights: string

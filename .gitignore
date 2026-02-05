@@ -3,13 +3,11 @@
 # ============================================================================
 
 # ===== DBT =====
-# dbt generates these - should not be committed
 target/
 dbt_packages/
 logs/
 
 # ===== CREDENTIALS =====
-# NEVER commit credentials!
 profiles.yml
 *.token
 *.key
@@ -17,50 +15,26 @@ profiles.yml
 databricks_token.txt
 
 # ===== PYTHON =====
-# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 
-# Virtual environments
 venv/
 env/
 ENV/
 .venv
 
-# Jupyter Notebook
 .ipynb_checkpoints
 
-# PyCharm
 .idea/
 
-# ===== PYTORCH/ML =====
-# Model checkpoints (if you regenerate them)
-# initial_nn/model.pth  # Uncomment if you want to exclude the trained model
-
 # ===== DATA =====
-# Verification outputs and temporary test results
 verification_results.csv
 *_results.csv
 
-# MNIST raw data (large files - can be re-downloaded)
 initial_nn/data/MNIST/raw/*.gz
 initial_nn/data/MNIST/raw/*-ubyte
-
-# ===== OS-SPECIFIC =====
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Linux
-*~
 
 # ===== IDE =====
 .vscode/
@@ -70,7 +44,6 @@ Desktop.ini
 *~
 
 # ===== MISC =====
-# Temporary files
 *.tmp
 *.temp
 *.log

@@ -1,0 +1,39 @@
+# SQL Neural Network Training Project
+# Implements backpropagation and gradient descent in SQL
+
+name: 'sql_nn_training'
+version: '1.0.0'
+config-version: 2
+
+profile: 'sql_neural_network'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros", "../architecture/macros"]  # Include inference macros too
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Seed configurations
+seeds:
+  sql_nn_training:
+    +quote_columns: false
+    +column_types:
+      # Pre-exploded weights (fast format)
+      weight_value: DOUBLE
+      bias_value: DOUBLE
+      pixel_value: DOUBLE
+      # Legacy JSON format (if still used)
+      weights: VARCHAR(65535)
+      
+# Model configurations  
+models:
+  sql_nn_training:
+    training:
+      +materialized: table
+      +tags: ['training', 'databricks']
+

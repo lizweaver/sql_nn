@@ -1,0 +1,152 @@
+version: 2
+
+models:
+  - name: training_step_sgd
+    description: |
+      Combined mini-batch SGD training step.
+      Performs forward pass, backward pass, and weight updates in a single query.
+      Output includes updated weights and batch metrics.
+    columns:
+      - name: param
+        description: "Parameter type (weights_fc1, biases_fc1, etc., or 'metrics')"
+      - name: output_idx
+        description: "Output neuron index"
+      - name: bias_value
+        description: "Bias value (for bias parameters)"
+      - name: weights
+        description: "JSON array of weights (for weight parameters)"
+      - name: loss
+        description: "Batch loss (for metrics row)"
+      - name: accuracy
+        description: "Batch accuracy (for metrics row)"
+
+  - name: validation_forward_pass
+    description: |
+      Forward pass on validation data using current weights.
+    columns:
+      - name: sample_id
+        description: "Validation sample identifier"
+      - name: class_idx
+        description: "Class index (0-9)"
+      - name: logit
+        description: "Output logit value"
+
+  - name: validation_softmax
+    description: |
+      Softmax probabilities for validation data.
+    columns:
+      - name: sample_id
+        description: "Validation sample identifier"
+      - name: class_idx
+        description: "Class index (0-9)"
+      - name: probability
+        description: "Softmax probability"
+
+  - name: validation_loss
+    description: |
+      Cross-entropy loss on validation set.
+    columns:
+      - name: average_loss
+        description: "Mean loss over validation batch"
+      - name: total_loss
+        description: "Sum of losses"
+      - name: batch_size
+        description: "Number of validation samples"
+
+  - name: validation_accuracy
+    description: |
+      Accuracy metrics on validation set.
+    columns:
+      - name: correct_count
+        description: "Number of correct predictions"
+      - name: total_count
+        description: "Total number of validation samples"
+      - name: accuracy
+        description: "Proportion correct (0-1)"
+      - name: loss
+        description: "Average validation loss"
+
+seeds:
+  - name: weights_fc1
+    description: "Layer 1 weights (784 -> 128)"
+    columns:
+      - name: output_idx
+        description: "Output neuron index (0-127)"
+      - name: weights
+        description: "JSON array of 784 weight values"
+        
+  - name: biases_fc1
+    description: "Layer 1 biases"
+    columns:
+      - name: output_idx
+        description: "Neuron index (0-127)"
+      - name: bias_value
+        description: "Bias value"
+
+  - name: weights_fc2
+    description: "Layer 2 weights (128 -> 64)"
+    columns:
+      - name: output_idx
+        description: "Output neuron index (0-63)"
+      - name: weights
+        description: "JSON array of 128 weight values"
+        
+  - name: biases_fc2
+    description: "Layer 2 biases"
+    columns:
+      - name: output_idx
+        description: "Neuron index (0-63)"
+      - name: bias_value
+        description: "Bias value"
+
+  - name: weights_fc3
+    description: "Layer 3 weights (64 -> 10)"
+    columns:
+      - name: output_idx
+        description: "Output neuron index (0-9)"
+      - name: weights
+        description: "JSON array of 64 weight values"
+        
+  - name: biases_fc3
+    description: "Layer 3 biases"
+    columns:
+      - name: output_idx
+        description: "Neuron index (0-9)"
+      - name: bias_value
+        description: "Bias value"
+
+  - name: input_images
+    description: "Input MNIST images as pixel values"
+    columns:
+      - name: sample_id
+        description: "Sample identifier"
+      - name: pixel_idx
+        description: "Pixel index (0-783)"
+      - name: pixel_value
+        description: "Normalized pixel value"
+
+  - name: true_labels
+    description: "Ground truth labels for training data"
+    columns:
+      - name: sample_id
+        description: "Sample identifier"
+      - name: true_label
+        description: "True digit (0-9)"
+
+  - name: validation_images
+    description: "Validation set input images"
+    columns:
+      - name: sample_id
+        description: "Sample identifier"
+      - name: pixel_idx
+        description: "Pixel index (0-783)"
+      - name: pixel_value
+        description: "Normalized pixel value"
+
+  - name: validation_labels
+    description: "Ground truth labels for validation data"
+    columns:
+      - name: sample_id
+        description: "Sample identifier"
+      - name: true_label
+        description: "True digit (0-9)"

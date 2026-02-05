@@ -1,0 +1,27 @@
+# Example profiles.yml - Copy to profiles.yml and configure
+# This training project uses the same profile as the architecture (inference) project
+
+sql_neural_network:
+  target: databricks
+  outputs:
+    
+    # Databricks configuration
+    databricks:
+      type: databricks
+      catalog: hive_metastore
+      schema: neural_network_training  # Different schema to avoid conflicts
+      host: "{{ env_var('DATABRICKS_HOST') }}"
+      http_path: "{{ env_var('DATABRICKS_HTTP_PATH') }}"
+      token: "{{ env_var('DATABRICKS_TOKEN') }}"
+      threads: 4
+
+    # Databricks Community Edition (free tier)
+    databricks_community:
+      type: databricks
+      catalog: hive_metastore
+      schema: neural_network_training
+      host: community.cloud.databricks.com
+      http_path: /sql/protocolv1/o/0/your-cluster-id
+      token: "{{ env_var('DATABRICKS_TOKEN') }}"
+      threads: 2
+
